@@ -66,7 +66,7 @@ def runAlg(filename):
     putativeResult = vis.visualizeModuleFamilyInfo(moduleFamilyInfo)
 
     # remove submodules
-    findBorders.removeSubModules(moduleFamilyInfo)
+    findBorders.removeSuperModules(moduleFamilyInfo)
     moduleResult = vis.visualizeModuleFamilyInfo(moduleFamilyInfo)
     # print moduleResult
 

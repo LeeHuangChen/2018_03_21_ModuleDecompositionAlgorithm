@@ -91,7 +91,7 @@ def generatePutativeModules(g):
     return len(CCgraphs), modulefamilyinfo
 
 
-def checkForSubModules(modules):
+def checkForSuperModules(modules):
 
     for i, M1 in enumerate(modules):
         for j, M2 in enumerate(modules):
@@ -106,19 +106,19 @@ def checkForSubModules(modules):
                 M2_in_M1 = (s1 <= s2) and (e1 >= e2)
 
                 if M1_in_M2:
-                    return i  # returns the index of the module that is to be removed
-                if M2_in_M1:
                     return j  # returns the index of the module that is to be removed
+                if M2_in_M1:
+                    return i  # returns the index of the module that is to be removed
     return -1
 
 
-def removeSubModules(moduleFamilyInfo):
+def removeSuperModules(moduleFamilyInfo):
     for protein in moduleFamilyInfo.keys():
         modules = moduleFamilyInfo[protein]
-        removeIndex = checkForSubModules(modules)
+        removeIndex = checkForSuperModules(modules)
         while removeIndex != -1:
             modules.pop(removeIndex)
-            removeIndex = checkForSubModules(modules)
+            removeIndex = checkForSuperModules(modules)
 
 
 # renames all of the module labels from 1 so the numbers are smaller
