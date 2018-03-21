@@ -39,20 +39,21 @@ def runAlg(filename):
     # outdir = os.path.join(outfolder, filename)
     # GenFasta.GenerateFastaInputForMultiFamilies(FamNames, outdir)
 
-    # generate protein lengths
-    plenFolder = conf.proteinLenFolder
-    util.generateDirectories(plenFolder)
-    plenDict = blast.generateProtLenDict(conf.fastaFolder, filename)
-    dump(plenDict, open(os.path.join(plenFolder, filename), "wb"))
+    if not conf.skipBLAST:
+        # generate protein lengths
+        plenFolder = conf.proteinLenFolder
+        util.generateDirectories(plenFolder)
+        plenDict = blast.generateProtLenDict(conf.fastaFolder, filename)
+        dump(plenDict, open(os.path.join(plenFolder, filename), "wb"))
 
-    # create blast databases
-    print " Conducting BLASTp all-to-all..."
-    blast.makeblastdb(conf.fastaFolder, filename)
+        # create blast databases
+        print " Conducting BLASTp all-to-all..."
+        blast.makeblastdb(conf.fastaFolder, filename)
 
-    # conduct all to all BLASTp
-    alltoallFolder = conf.alltoallFolder
-    util.generateDirectories(alltoallFolder)
-    blast.alltoallBlastP(conf.fastaFolder, filename, os.path.join(alltoallFolder, filename))
+        # conduct all to all BLASTp
+        alltoallFolder = conf.alltoallFolder
+        util.generateDirectories(alltoallFolder)
+        blast.alltoallBlastP(conf.fastaFolder, filename, os.path.join(alltoallFolder, filename))
 
     # This is where my algorithm starts and also where I'll start timing
     print " Conducting my algorithm..."
@@ -91,8 +92,8 @@ def runAlg(filename):
         f.write("time elapsed: "+str(timediff))
         util.printL("Completed in "+str(timediff)+" seconds\n")
         f.write("number of IntervalEdges added: "+str(numIntEdge)+"\n")
-        f.write("Putative Domains: " + str(numModules) + "\n" + putativeResult + "\n")
-        f.write("RemoveSubModules: \n" + moduleResult + "\n")
+        f.write("Putative Modules: " + str(numModules) + "\n" + putativeResult + "\n")
+        f.write("RemoveSuperModules: \n" + moduleResult + "\n")
         f.write("Final Module Definition: " + str(numModulesAfterFilter) + "\n" + moduleResultRenamed + "\n")
 
     # Write down the timing results

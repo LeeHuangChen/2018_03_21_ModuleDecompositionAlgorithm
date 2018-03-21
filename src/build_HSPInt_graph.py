@@ -164,6 +164,7 @@ def build_graph(blastInfoFilename, blastdir):
 
     numlines = len(open(os.path.join(blastdir, blastInfoFilename), "r").readlines())
     # add the HSP edges
+    print "Proc 1"
     util.progressbarGuide(20)
     numBlastLines = 0
     with open(os.path.join(blastdir, blastInfoFilename), "r") as f:
@@ -197,8 +198,12 @@ def build_graph(blastInfoFilename, blastdir):
 
     # add the Interval edges
     proteins = nodeNames.keys()
+    lenprot = len(proteins)
     numIntEdge = 0
-    for protein in proteins:
+    print "Proc 2"
+    util.progressbarGuide(20)
+    for j, protein in enumerate(proteins):
+        util.progressbar(j, lenprot, 20)
         subNodeNames = nodeNames[protein]
         # print subNodeNames
         for i in xrange(len(subNodeNames) - 1):
