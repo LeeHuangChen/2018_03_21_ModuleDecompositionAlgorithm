@@ -6,3 +6,4 @@ venv
 Resources/FamToLineDict.cpickle
 Resources/FastaSeqDict.cpickle
 Results
+*.pyc
