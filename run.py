@@ -61,6 +61,8 @@ def runAlg(filename):
     # build HSPIntGraph
     seqSimGraph, numBlastLines, numIntEdge = buildGraph.build_graph(filename, conf.alltoallFolder)
 
+    graphSize = seqSimGraph.size()
+    print "graphSize = ", graphSize
     # identify protein module borders
     # putative domains
     numModules, moduleFamilyInfo = findBorders.generatePutativeModules(seqSimGraph)
@@ -98,7 +100,7 @@ def runAlg(filename):
 
     # Write down the timing results
     with open(conf.runTimeFile, "a") as f:
-        f.write(str(numBlastLines)+"\t"+str(timediff)+"\t"+filename+"\n")
+        f.write(str(numBlastLines)+"\t"+str(graphSize)+"\t"+str(timediff)+"\t"+filename+"\n")
 
     # # compare the borders with pfam definitions side by side
     # pFamDict = pfamComp.correspondingPFamDict(moduleFamilyInfo)
@@ -125,7 +127,8 @@ def main():
     seqFiles = os.listdir(conf.inputFolder)
     # generate runtime output file
     util.generateDirectories(conf.runTimefolder)
-    open(conf.runTimeFile, "w")
+    with open(conf.runTimeFile, "w") as f:
+        f.write("numBLAST_Align\tgraphSize\ttime\tfilename\n")
     for i, seqFile in enumerate(seqFiles):
         util.printL("\nAnalyzing "+seqFile+"("+str(i)+"/"+str(len(seqFiles))+")\n")
         runAlg(seqFile)
