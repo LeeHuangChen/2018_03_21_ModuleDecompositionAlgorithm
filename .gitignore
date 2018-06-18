@@ -1,9 +1,10 @@
 .pyc
 .idea
 configurations.pyc
-Generated
+Generated/
 venv
 Resources/FamToLineDict.cpickle
 Resources/FastaSeqDict.cpickle
 Results
 *.pyc
+InputFiles/
