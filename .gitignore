@@ -1,6 +1,6 @@
 .pyc
 .idea
-configurations.pyc
+configurations.py
 Generated/
 venv
 Resources/FamToLineDict.cpickle
