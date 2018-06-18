@@ -7,7 +7,7 @@ simularProteinRatio = .90
 
 # skip BLAST all-to-all, if you copy pasted the BLAST all to all information and protein length information
 # to the Generated folder, you can set to this True to skip running BLAST all-to-all
-skipBLAST = True
+skipBLAST = False
 
 # delete generated folder from 1-3 to safe disk space
 deleteFolders = False
